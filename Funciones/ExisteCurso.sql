@@ -1,0 +1,14 @@
+DELIMITER $$
+DROP FUNCTION IF EXISTS ExisteCurso $$ CREATE FUNCTION ExisteCurso(
+	codigo int
+)
+RETURNS BOOLEAN
+DETERMINISTIC
+BEGIN
+DECLARE existe BOOLEAN;
+-- Sentencias SQL
+SELECT EXISTS( SELECT 1 FROM curso AS cu WHERE cu.codigo = codigo ) INTO existe;
+RETURN existe;
+END $$
+
+SELECT ExisteCurso(774);
