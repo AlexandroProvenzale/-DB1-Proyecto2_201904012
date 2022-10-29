@@ -75,16 +75,16 @@ CREATE TABLE asignar_curso(
         carnet bigint NOT NULL,
         asignado bool NOT NULL,
         PRIMARY KEY(id_asignar_curso),
-        FOREIGN KEY (id_curso_habilitado) REFERENCES curso_habilitado(id_curso_habilitado)
+        FOREIGN KEY (id_curso_habilitado) REFERENCES curso_habilitado(id_curso_habilitado),
+        FOREIGN KEY (carnet) REFERENCES estudiante(carnet)
 );
 
 CREATE TABLE notas_estudiante(
 		id_notas int NOT NULL AUTO_INCREMENT,
-		id_curso_habilitado int NOT NULL,
-        carnet bigint NOT NULL,
+		id_asignar_curso int NOT NULL,
         nota int NOT NULL,
         PRIMARY KEY(id_notas),
-        FOREIGN KEY (id_curso_habilitado) REFERENCES curso_habilitado(id_curso_habilitado)
+        FOREIGN KEY (id_asignar_curso) REFERENCES asignar_curso(id_asignar_curso)
 );
 
 CREATE TABLE acta(

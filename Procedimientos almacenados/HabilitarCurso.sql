@@ -34,10 +34,15 @@ IF (NOT ValidarEnteroPositivo(cupo_max_in)) THEN
 	LEAVE hab_curso;
 END IF;
 
+IF (ObtenerIdCursoHab(codigo_curso_in, ciclo_in, seccion_in) != 0) THEN
+	SELECT "Ya hay un curso habilitado con estos campos." AS ERROR;
+	LEAVE hab_curso;
+END IF;
+
 INSERT INTO curso_habilitado(codigo_curso, ciclo, docente, cupo_max, seccion, ano, asignados)
-VALUES (codigo_curso_in, ciclo_in, docente_in, cupo_max_in, seccion_in, YEAR(CURDATE()), 0);
+VALUES (codigo_curso_in, ciclo_in, docente_in, cupo_max_in, UPPER(seccion_in), YEAR(CURDATE()), 0);
 
 /* MENSAJE */
-SELECT CONCAT('Curso de código ', codigo_curso_in,' habilitado con la sección ', seccion_in, '. Id del curso = ', curso_habilitado.id_curso_habilitado, '.') AS MENSAJE;
+SELECT CONCAT('Curso de código ', codigo_curso_in,' habilitado con la sección ', seccion_in, '. Id del curso = ', id_curso_habilitado, '.') AS MENSAJE FROM curso_habilitado;
 
 END $$
